@@ -26,51 +26,50 @@ app.config(['$routeProvider', function($routerProvider){
     })
     .otherwise({
   		templateUrl: 'templates/pageNotFound.tmpl.html'
-		});
+	});
 }]);
 
 
 /* Realiza requisiçao ajax */
 app.factory('RankingAPI', function($http){
-  var _getLista =  function(url){
-    return $http.get(url);
-  };
-  return {
-    getLista: _getLista
-  };
+	var _getLista =  function(url){
+		return $http.get(url);
+	};
+	return {
+		getLista: _getLista
+	};
 });
 
 /* Retorna o usuario logado no momento. */
 app.factory('GetUsuario', function($cookies){
-  var _getUsuario =  function(){
-    return $cookies.get('login');
-  };
-  return {
-    getUsuario: _getUsuario
-  };
+    var _getUsuario =  function(){
+       return $cookies.get('login');
+    };
+    return {
+       getUsuario: _getUsuario
+    };
 });
 
 
 /* Controla ranking*/
 app.controller('TudoController', function( $rootScope, $scope, RankingAPI, config){
-  var url = config.baseURL + '/ranking';
-      
-  $scope.ranking = [];
-  $scope.user = {};
+	var url = config.baseURL + '/ranking';
 
-  RankingAPI.getLista(url).then(function(response) {         
-    var r = response.data;
-    $scope.ranking = r;
-            
-    for (var i = 0; i < r.length; i++){  
-      $scope.ranking[i]['posicao']  = i + 1;
-      var url = 'https://api.github.com/users/'+ r[i].login;
-      RankingAPI.getLista(url).then(function(response) {  
-        $scope.user[response.data.login] = response.data;
-      });
-    }
-    
-  });
+	$scope.ranking = [];
+	$scope.user = {};
+
+	RankingAPI.getLista(url).then(function(response) {         
+		var r = response.data;
+		$scope.ranking = r;
+
+		for (var i = 0; i < r.length; i++){  
+			$scope.ranking[i]['posicao']  = i + 1;
+			var url = 'https://api.github.com/users/'+ r[i].login;
+			RankingAPI.getLista(url).then(function(response) {  
+				$scope.user[response.data.login] = response.data;
+			});
+		} 
+	});
 });
 
 
@@ -94,7 +93,7 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
       resposta = response.data.nota;
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: 'tabDialog.tmpl.html',
+        templateUrl: 'templates/tabDialog.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:false
@@ -102,11 +101,11 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
     });
   };
  
-  function DialogController($scope, $mdDialog) {
-    $scope.cancel = function() {
-      $mdDialog.cancel();
-    };
-  }
+  	function DialogController($scope, $mdDialog) {
+   		$scope.cancel = function() {
+      		$mdDialog.cancel();
+    	};
+  	}
 
 });
 
@@ -127,33 +126,32 @@ app.controller("LoginController", function($scope, $http, $window, $cookies, con
   }
 
   $scope.entrar = function(){
-      var provider = new firebase.auth.GithubAuthProvider(); 
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        
-        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        var token = result.credential.accessToken;
-        repositoriosGit = config.baseURLGIT + '/user?access_token=' + token;
-        
-        $http.get(repositoriosGit).then(function(response) {
-            // Armazena o usuario logado no cookie.
-            $cookies.put('login', response.data.login);
+	var provider = new firebase.auth.GithubAuthProvider(); 
+	firebase.auth().signInWithPopup(provider).then(function(result) {
 
-            // Atualiza a pagina apos login.
-            $window.location.reload();
-        });
-        
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-      });
+	// This gives you a GitHub Access Token. You can use it to access the GitHub API.
+	var token = result.credential.accessToken;
+	repositoriosGit = config.baseURLGIT + '/user?access_token=' + token;
+
+	$http.get(repositoriosGit).then(function(response) {
+		// Armazena o usuario logado no cookie.
+		$cookies.put('login', response.data.login);
+
+		// Atualiza a pagina apos login.
+		$window.location.reload();
+		});
+
+		}).catch(function(error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+	});
   }
 
   $scope.sair = function(){
     firebase.auth().signOut().then(function() {
       $cookies.put('login', '')
-      $window.location.reload();
-      
+      $window.location.reload();  
     }, function(error) {
       // An error happened.
     });
@@ -162,35 +160,27 @@ app.controller("LoginController", function($scope, $http, $window, $cookies, con
 
 
 app.controller('AppCtrl', function($scope, $mdDialog) {
-  $scope.status = '  ';
-  $scope.customFullscreen = false;
+	$scope.status = '  ';
+	$scope.customFullscreen = false;
 
-  $scope.showTabDialog = function(ev) {
-    $mdDialog.show({
-      controller: DialogController,
-      templateUrl: 'tabDialog.tmpl.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      clickOutsideToClose:true
-    })
-    .then(function(answer) {
-      $scope.status = 'You said the information was "' + answer + '".';
-    }, function() {
-      $scope.status = 'You cancelled the dialog.';
-    });
-  };
+	$scope.showTabDialog = function(ev) {
+		$mdDialog.show({
+		controller: DialogController,
+		templateUrl: 'tabDialog.tmpl.html',
+		parent: angular.element(document.body),
+		targetEvent: ev,
+		clickOutsideToClose:true
+		})
+		.then(function(answer) {
+		$scope.status = 'You said the information was "' + answer + '".';
+		}, function() {
+		$scope.status = 'You cancelled the dialog.';
+		});
+	};
 
-  function DialogController($scope, $mdDialog) {
-    $scope.hide = function() {
-      $mdDialog.hide();
-    };
-
-    $scope.cancel = function() {
-      $mdDialog.cancel();
-    };
-
-    $scope.answer = function(answer) {
-      $mdDialog.hide(answer);
-    };
-  }
+	function DialogController($scope, $mdDialog) {
+		$scope.cancel = function() {
+		$mdDialog.cancel();
+		};
+	}
 });
