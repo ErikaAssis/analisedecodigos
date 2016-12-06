@@ -1,0 +1,19 @@
+{
+ "name": "BomCodigo",
+ "short_name": "BomCodigo",
+ "icons": [{
+ "src": "img/ico.png",
+ "sizes": "24x24",
+ "type": "image/png"
+ },
+ 
+ {
+ "src": "t.png",
+ "sizes": "960x540",
+ "type": "image/png"
+ }],
+ "start_url": "/",
+ "background_color": "#3E4EB8",
+ "display": "standalone",
+ "theme_color": "#FFFFFF"
+}

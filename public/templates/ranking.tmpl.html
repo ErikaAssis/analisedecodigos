@@ -1,0 +1,39 @@
+<div layout="row" layout-wrap class="container">
+    <div flex="100">
+        <md-subheader hide-xs hide-sm show-gt-md class="md-no-sticky"><h1>Ranking - Bom Código</h1></md-subheader>
+        <md-subheader hide-gt-sm class="md-no-sticky"><h2>Ranking - Bom Código</h2></md-subheader>
+        
+        <md-input-container class="md-icon-float md-block">
+            <label>Pesquisar por nome</label>
+            <md-icon> <i class="material-icons">search</i></md-icon>
+            <input ng-model="criteria">
+        </md-input-container> 
+
+        <md-progress-linear ng-if="ranking.length == 0" class="md-warn md-hue-2"></md-progress-linear> 
+    </div>
+
+    <md-list flex="70" style="margin-left: 50px;">
+        <md-list-item class="md-2-line" ng-repeat="usuario in ranking | filter: criteria" >
+            <span hide-xs hide-sm show-gt-md class="md-display-1">
+                {{usuario.posicao}}º
+                &nbsp;
+            </span>
+            <!-- Fonte ajustada para dispositivos moveis -->
+            <span hide-gt-sm class="md-headline">
+                {{usuario.posicao}}º
+                &nbsp;
+            </span>
+           
+            <img ng-src="{{user[usuario.login].avatar_url }}" class="md-avatar" />
+        
+            <strong hide-xs hide-sm show-gt-md>{{user[usuario.login].name}} &nbsp;</strong>
+            <!-- Fonte ajustada para dispositivos moveis -->
+            <strong style="font-size: 18px" hide-gt-sm >{{user[usuario.login].name}} &nbsp; </strong> 
+
+            <span flex></span>
+            <md-button class="md-warn md-hue-2" ng-href={{user[usuario.login].html_url}} target="_blank">
+                Visitar repositório
+            </md-button>     
+        </md-list-item>
+    </md-list>
+</div>

@@ -1,0 +1,15 @@
+main {
+  overflow-y: auto;
+}
+
+footer{
+	padding-top: 1%;
+	font-size: small;
+	text-align: center;
+}
+
+a.home {
+  border-bottom: none; 
+	font-size: 140%;
+	margin-left: 2%;
+}

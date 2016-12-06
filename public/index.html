@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="BomCodigo">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1"/>
+		<meta name='theme-color' content='#006064'/>
+		<title>Bom Código</title>
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.css">
+		<link href="static/css/estilo.css" rel="stylesheet" media="screen">
+		<link rel="manifest" href="manifest.json">
+	</head>
+	<body ng-app="BomCodigo" ng-cloak>
+		<div ng-controller="LoginController" layout="column" layout-fill>
+			<header>
+				<md-toolbar class="md-hue-2">
+					<div class="md-toolbar-tools" layout="row">	
+						<a class="md-title home" ng-href="#/" href="#/">Bom Código</a>
+						<span flex></span>
+						
+						<md-button href="#/" hide-xs hide-sm show-gt-md>
+							<span>Home</span>
+						</md-button>
+
+						<md-button  href="#/ranking" hide-xs hide-sm show-gt-md>
+							<span>Ranking</span>
+						</md-button>
+
+						<md-button ng-if="is_autenticado()" href="#/repositorios-usuario" hide-xs hide-sm show-gt-md>
+							<span>Repositórios</span>
+						</md-button>
+
+						<md-button hide-sm hide-xs ng-if="is_autenticado()" ng-click="sair()" >
+							Sair
+						</md-button>
+						<md-button hide-sm hide-xs ng-if="!is_autenticado()" ng-click="entrar()">
+							Entrar  				
+						</md-button>
+							
+						<md-list-item  aria-label="More" hide-gt-sm>
+							<md-menu class="md-secondary">
+								<md-button class="md-icon-button">
+									<i class="material-icons">menu</i>
+								</md-button>
+
+								<md-menu-content width="4">
+									<md-menu-item>
+										<md-button href="#/">
+											Home
+										</md-button>
+									</md-menu-item>
+
+									<md-menu-item>
+										<md-button href="#/ranking">
+											Ranking
+										</md-button>
+									</md-menu-item>
+
+									<md-menu-item ng-if="is_autenticado()">
+										<md-button  href="#/repositorios-usuario">
+											Repositórios
+										</md-button>
+									</md-menu-item>
+
+									<md-menu-divider></md-menu-divider>
+
+									<md-menu-item >
+										<md-button ng-if="!is_autenticado()" ng-click="entrar()">
+											Entrar  				
+										</md-button>
+
+										<md-button ng-if="is_autenticado()" ng-click="sair()" >
+											Sair
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+
+							</md-menu>
+						</md-list-item>
+					</div>
+				</md-toolbar>
+			</header>
+
+			<main flex layout-fill>
+				<div layout="row" ui-view>
+					<div layout="column" flex id="content">
+						<md-content layout="column" flex class="md-padding">
+							<div ng-view class="view-animate"></div>
+						</md-content> 
+					</div>
+				</div>
+			</main>
+
+			<footer>
+				<div class="md-accent">
+					<div id="rodape">
+						Trabalho de WebService do curso de Sistemas para Internet, 4º período.
+						Instituto Federal do Sudeste de Minas Gerais, campus Barbacena.	
+						<br>			
+						<small>Desenvolvido por:</small>
+						<strong>Érika e Luciano</strong>
+						<br>
+					</div>
+				</div>
+		  	</footer>
+		</div>
+
+		<!-- Firebase -->
+		<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+		<script>
+		 // Initialize Firebase
+		var config = {
+		 	apiKey: '',
+		    authDomain: '',
+		    databaseURL: '',
+		    storageBucket: '',
+		    messagingSenderId: ''
+		};
+		firebase.initializeApp(config);
+		</script>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-aria.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.js"></script>
+		<script src="static/js/angular-cookies.js"></script>
+		<script src="static/js/script.js"></script>
+		<script src="static/js/configValue.js"></script>
+
+	</body>
+</html>

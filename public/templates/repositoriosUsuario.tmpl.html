@@ -1,0 +1,42 @@
+<div layout="row" layout-wrap class="container" ng-if="is_autenticado()">
+    <div flex="100">
+        <md-subheader hide-xs hide-sm show-gt-md class="md-no-sticky"><h1>Repositórios</h1></md-subheader>
+        <md-subheader hide-gt-sm class="md-no-sticky"><h2>Repositórios<h2></md-subheader>
+        
+        <md-input-container class="md-icon-float md-block"> <!-- ng-if="repositorios.length < 5" -->
+            <label>Pesquisar por nome</label>
+            <md-icon> <i class="material-icons">search</i></md-icon>
+            <input ng-model="criteria">
+        </md-input-container>
+
+        <md-progress-linear ng-if="repositorios.length == 0" md-mode="indeterminate" class="md-warn md-hue-2"></md-progress-linear>
+    </div>
+    
+    <md-list flex="100">
+        <md-list-item class="md-2-line" ng-repeat="repositorio in repositorios | filter : criteria" ng-if="repositorio.language == 'Python'">
+            <div class="md-list-item-text">
+                <div layout='row'>
+                    <div>
+                        <h3><strong>{{repositorio.name}}</strong></h3>
+                        <small>{{repositorio.description}}</small>
+                        <md-button class="md-warn  md-hue-2" ng-click="showTabDialog($event, repositorio)">
+                            Analisar
+                        </md-button>
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular ng-disabled="2" md-mode="determinate" class="md-warn md-hue-2"></md-progress-circular>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-list-item>
+    </md-list>
+</div>
+
+
+<div layout="row" layout-wrap class="container" ng-if="!is_autenticado()">
+    <h1 class="md-display-2">Você tem que logar no GitHub para visualizar seus repositórios :)</h1>
+    
+    <md-button class="md-raised md-warn md-hue-2" ng-if="!is_autenticado()" ng-click="entrar()">
+        Entrar                  
+    </md-button>
+</div>
