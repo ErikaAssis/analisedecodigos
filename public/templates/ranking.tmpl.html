@@ -12,7 +12,7 @@
         <md-progress-linear ng-if="ranking.length == 0" class="md-warn md-hue-2"></md-progress-linear> 
     </div>
 
-    <md-list flex="70" style="margin-left: 50px;">
+    <md-list flex="90">
         <md-list-item class="md-2-line" ng-repeat="usuario in ranking | filter: criteria" >
             <span hide-xs hide-sm show-gt-md class="md-display-1">
                 {{usuario.posicao}}º
