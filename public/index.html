@@ -25,12 +25,16 @@
 							<span>Home</span>
 						</md-button>
 
-						<md-button  href="#/ranking" hide-xs hide-sm show-gt-md>
-							<span>Ranking</span>
+						<md-button  href="#/ranking-usuarios" hide-xs hide-sm show-gt-md>
+							<span>Ranking usuários</span>
 						</md-button>
 
-						<md-button ng-if="is_autenticado()" href="#/repositorios-usuario" hide-xs hide-sm show-gt-md>
-							<span>Repositórios</span>
+						<md-button  href="#/ranking-repositorios" hide-xs hide-sm show-gt-md>
+							<span>Ranking repositórios</span>
+						</md-button>
+
+						<md-button ng-if="is_autenticado()" href="#/meus-repositorios" hide-xs hide-sm show-gt-md>
+							<span>Meus Repositórios</span>
 						</md-button>
 
 						<md-button hide-sm hide-xs ng-if="is_autenticado()" ng-click="sair()" >
@@ -54,14 +58,20 @@
 									</md-menu-item>
 
 									<md-menu-item>
-										<md-button href="#/ranking">
-											Ranking
+										<md-button href="#/ranking-usuarios">
+											Ranking usuários
+										</md-button>
+									</md-menu-item>
+
+									<md-menu-item>
+										<md-button href="#/ranking-repositorios">
+											Ranking repositórios
 										</md-button>
 									</md-menu-item>
 
 									<md-menu-item ng-if="is_autenticado()">
-										<md-button  href="#/repositorios-usuario">
-											Repositórios
+										<md-button  href="#/meus-repositorios">
+											Meus Repositórios
 										</md-button>
 									</md-menu-item>
 
@@ -95,7 +105,7 @@
 			</main>
 
 			<footer>
-				<div class="md-accent">
+				<div>
 					<div id="rodape">
 						Trabalho de WebService do curso de Sistemas para Internet, 4º período.
 						Instituto Federal do Sudeste de Minas Gerais, campus Barbacena.	
