@@ -5,7 +5,7 @@ app.config(function($mdThemingProvider) {
   // Cor do cabeçalho.
   $mdThemingProvider.theme('default')
     .primaryPalette('cyan')
-    .accentPalette('yellow')
+    .accentPalette('orange')
     .warnPalette('orange');
 });
 
@@ -13,16 +13,20 @@ app.config(function($mdThemingProvider) {
 /* Configuraçao de rotas*/
 app.config(['$routeProvider', function($routerProvider){
 	$routerProvider
-		.when('/repositorios-usuario', {
-			controller: "ReposController",
+		.when('/meus-repositorios', {
+			controller: "ReposController",//"RepositoriosUsuarioController",
 			templateUrl: 'templates/repositoriosUsuario.tmpl.html'
 		})
-		.when('/ranking', {
-			controller: "TudoController",
+		.when('/ranking-usuarios', {
+			controller: "RankingUsuarioController",
 			templateUrl: 'templates/ranking.tmpl.html'
 		})
-	  .when('/', {
-      templateUrl: 'templates/inicio.tmpl.html'
+		.when('/ranking-repositorios', {
+			controller: "RankingRepositorioController",
+			templateUrl: 'templates/rankingRepositorio.tmpl.html'
+		})
+	  	.when('/', {
+      		templateUrl: 'templates/inicio.tmpl.html'
     })
     .otherwise({
   		templateUrl: 'templates/pageNotFound.tmpl.html'
@@ -52,7 +56,7 @@ app.factory('GetUsuario', function($cookies){
 
 
 /* Controla ranking*/
-app.controller('TudoController', function( $rootScope, $scope, RankingAPI, config){
+app.controller('RankingUsuarioController', function($rootScope, $scope, RankingAPI, config){
 	var url = config.baseURL + '/ranking';
 
 	$scope.ranking = [];
@@ -64,48 +68,66 @@ app.controller('TudoController', function( $rootScope, $scope, RankingAPI, confi
 
 		for (var i = 0; i < r.length; i++){  
 			$scope.ranking[i]['posicao']  = i + 1;
-			var url = 'https://api.github.com/users/'+ r[i].login;
-			RankingAPI.getLista(url).then(function(response) {  
+			RankingAPI.getLista('https://api.github.com/users/'+ r[i].login).then(function(response) {  
 				$scope.user[response.data.login] = response.data;
 			});
 		} 
 	});
 });
 
+/* Controla ranking repositórios*/
+app.controller('RankingRepositorioController', function($rootScope, $scope, RankingAPI, config){
+	var url = config.baseURL + '/ranking/repos';
+
+	$scope.ranking = [];
+
+	RankingAPI.getLista(url).then(function(response) {         
+		var r = response.data;
+		$scope.ranking = r;
+
+		for (var i = 0; i < r.length; i++){  
+			$scope.ranking[i]['posicao']  = i + 1;
+		} 
+
+		console.log($scope.ranking)
+	});
+});
+
 
 /* Controla repositorios do usuario*/
 app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog, GetUsuario, RankingAPI, config, $cookies){
-  $scope.repositorios = [];
-  $scope.resposta;
+	$scope.repositorios = [];
+	$scope.batata = {};
 
-  var user = GetUsuario.getUsuario();
+  	var user = GetUsuario.getUsuario();
 
-  if(user != ''){
-    RankingAPI.getLista('https://api.github.com/users/'+ user +'/repos').then (function(response) {
-      $scope.repositorios = response.data;
-    });
-  }
+	if(user != ''){
+		RankingAPI.getLista('https://api.github.com/users/'+ user +'/repos').then (function(response) {
+		  $scope.repositorios = response.data;
+		});
+	}
 
-  $scope.showTabDialog = function(ev, repositorio) {
-    var url = config.baseURL + '/analysis/' + repositorio.html_url;
+	$scope.analisarRepositorio = function(ev, repositorio) {
+		var url = config.baseURL + '/analysis/' + repositorio.html_url;
 
-    RankingAPI.getLista(url).then(function(response){
-      resposta = response.data.nota;
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'templates/tabDialog.tmpl.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:false
-      });
-    });
-  };
+		RankingAPI.getLista(url).then(function(response){
+			$scope.batata = response.data;
+			console.log($scope.batata)
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'templates/tabDialog.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:false
+			});
+		});
+	};
  
-  	function DialogController($scope, $mdDialog) {
-   		$scope.cancel = function() {
-      		$mdDialog.cancel();
-    	};
-  	}
+	function DialogController($scope, $mdDialog) {
+		$scope.cancel = function() {
+			$mdDialog.cancel();
+		};
+	}
 
 });
 
@@ -157,30 +179,3 @@ app.controller("LoginController", function($scope, $http, $window, $cookies, con
     });
   }
 })
-
-
-app.controller('AppCtrl', function($scope, $mdDialog) {
-	$scope.status = '  ';
-	$scope.customFullscreen = false;
-
-	$scope.showTabDialog = function(ev) {
-		$mdDialog.show({
-		controller: DialogController,
-		templateUrl: 'tabDialog.tmpl.html',
-		parent: angular.element(document.body),
-		targetEvent: ev,
-		clickOutsideToClose:true
-		})
-		.then(function(answer) {
-		$scope.status = 'You said the information was "' + answer + '".';
-		}, function() {
-		$scope.status = 'You cancelled the dialog.';
-		});
-	};
-
-	function DialogController($scope, $mdDialog) {
-		$scope.cancel = function() {
-		$mdDialog.cancel();
-		};
-	}
-});
