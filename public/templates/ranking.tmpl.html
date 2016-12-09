@@ -12,31 +12,34 @@
         <md-progress-linear ng-if="ranking.length == 0" class="md-warn md-hue-2"></md-progress-linear> 
     </div>
 
-    <div flex="100" ng-repeat="usuario in ranking | filter: criteria" layout="column" style="margin-top: 3%;">
-        <span hide-xs hide-sm show-gt-md class="md-display-2">
-            {{usuario.posicao}}º
-            &nbsp;
-            <strong style="font-size: 25px; margin-left: -2%;" hide-xs hide-sm show-gt-md>Nome repositório&nbsp;</strong>
-
-        </span>
-        <!-- Fonte ajustada para dispositivos moveis -->
-        <span hide-gt-sm class="md-headline">
-            {{usuario.posicao}}º
-            &nbsp;
-            <strong style="font-size: 20px" hide-gt-sm flex-offset="3">Nome repositório&nbsp;</strong>
-        </span>
-
-        <div style="margin-left: 5%;" >
-            <br/>
-            <strong hide-xs hide-sm show-gt-md style="font-size: 22px">Nota: 654&nbsp;</strong>
-            <strong hide-gt-sm style="font-size: 18px">Nota: 654&nbsp;</strong>
-
-            <p hide-xs hide-sm show-gt-md>Autor: {{user[usuario.login].name}}&nbsp;</p>
-            <p hide-gt-sm>Autor: {{user[usuario.login].name}}&nbsp;</p>
-
-            <md-button style="margin-left: -1%;" class="md-warn md-raised md-hue-2" ng-href={{user[usuario.login].html_url}} target="_blank">
-                Visitar repositório
-            </md-button>
-        </div> 
-    </div>
+    <md-list flex="100">
+        <md-list-item ng-repeat="usuario in ranking | filter: criteria" layout="row">
+            <md-card flex="100">
+                <md-card-content>
+                    <span hide-xs hide-sm show-gt-md class="md-display-2">
+                        {{usuario.posicao}}º
+                        &nbsp;
+                        <img ng-src="{{user[usuario.login].avatar_url}}" class="md-avatar"/>
+                        <strong style="font-size: 25px;" hide-xs hide-sm show-gt-md flex-offset="3">{{user[usuario.login].name}}&nbsp;</strong>
+                    </span>
+                    <!-- Fonte ajustada para dispositivos moveis -->
+                    <span hide-gt-sm>
+                        {{usuario.posicao}}º
+                        &nbsp;
+                        <img ng-src="{{user[usuario.login].avatar_url}}" class="md-avatar"/>
+                        <strong style="font-size: 20px" hide-gt-sm flex-offset="3">{{user[usuario.login].name}}&nbsp;</strong>
+                    </span>
+                    <strong hide-xs hide-sm show-gt-md style="font-size: 21px">Nota: {{usuario.nota}}&nbsp;</strong>
+                    <strong hide-gt-sm style="font-size: 18px">Nota: {{usuario.nota}}&nbsp;</strong>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end start">
+                    <md-button class="md-warn md-raised md-hue-2" ng-href={{user[usuario.login].html_url}} target="_blank">
+                        Visitar página
+                    </md-button>
+                </md-card-actions>
+            </md-card>           
+        </md-list-item>
+    </md-list> 
 </div>
+
+
