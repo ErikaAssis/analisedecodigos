@@ -5,7 +5,7 @@ app.config(function($mdThemingProvider) {
   // Cor do cabeçalho.
   $mdThemingProvider.theme('default')
     .primaryPalette('cyan')
-    .accentPalette('orange')
+    .accentPalette('yellow')
     .warnPalette('orange');
 });
 
@@ -153,7 +153,7 @@ app.controller("LoginController", function($scope, $http, $window, $cookies, con
       $cookies.put('login', '')
       $window.location.reload();  
     }, function(error) {
-      // An error happened.
+      alert('Erro logout');
     });
   }
 })
