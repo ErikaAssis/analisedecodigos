@@ -1,0 +1,51 @@
+<div layout="row" layout-wrap class="container">
+    <div flex="100">
+        <md-subheader hide-xs hide-sm show-gt-md class="md-no-sticky"><h1>Ranking Repositórios</h1></md-subheader>
+        <md-subheader hide-gt-sm class="md-no-sticky"><h2>Ranking Repositórios</h2></md-subheader>
+        
+        <md-input-container class="md-icon-float md-block">
+            <label>Pesquisar</label>
+            <md-icon> <i class="material-icons">search</i></md-icon>
+            <input ng-model="criteria">
+        </md-input-container> 
+
+        <md-progress-linear ng-if="ranking.length == 0" class="md-warn md-hue-2"></md-progress-linear> 
+    </div>
+
+    <md-list flex="100">
+        <md-list-item ng-repeat="repositorio in ranking | filter: criteria" layout="row">
+            <md-card flex="100">
+                <md-card-content>
+                    <span hide-xs hide-sm show-gt-md class="md-display-2">
+                        {{repositorio.posicao}}º
+                        &nbsp;
+                        <strong style="font-size: 25px;" hide-xs hide-sm show-gt-md >{{ranking[repositorio.posicao-1].nome}}&nbsp;</strong>
+                    </span>
+                    <!-- Fonte ajustada para dispositivos moveis -->
+                    <span hide-gt-sm class="md-display-1">
+                        {{repositorio.posicao}}º
+                        <strong style="font-size: 20px" hide-gt-sm>{{ranking[repositorio.posicao-1].nome}}&nbsp;</strong>
+                    </span>
+
+                    <br/>
+
+                    <strong hide-xs hide-sm show-gt-md style="font-size: 21px">Nota: {{repositorio.nota}}&nbsp;</strong>
+                    <strong hide-gt-sm style="font-size: 17px">Nota: {{repositorio.nota}}&nbsp;</strong>
+
+                    <br/>
+
+                    <strong hide-xs hide-sm show-gt-md style="font-size: 21px">Autor: {{ranking[repositorio.posicao-1].usuario["login"]}}&nbsp;</strong>
+                    <strong hide-gt-sm style="font-size: 17px">Autor: {{ranking[repositorio.posicao-1].usuario["login"]}}&nbsp;</strong>
+
+                </md-card-content>
+                <!--<md-card-actions layout="row" layout-align="end start">
+                    <md-button class="md-warn md-raised md-hue-2" ng-href={{user[usuario.login].html_url}} target="_blank">
+                        Visitar página
+                    </md-button>
+                </md-card-actions> -->
+            </md-card>           
+        </md-list-item>
+    </md-list> 
+</div>
+
+
