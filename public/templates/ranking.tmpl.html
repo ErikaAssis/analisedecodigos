@@ -1,6 +1,8 @@
 <div layout="row" layout-wrap class="container">
     <div flex="100">
         <md-subheader hide-xs hide-sm show-gt-md class="md-no-sticky"><h1>Ranking Usuários</h1></md-subheader>
+        
+        <!-- Fonte ajustada para dispositivos moveis -->
         <md-subheader hide-gt-sm class="md-no-sticky"><h2>Ranking Usuários</h2></md-subheader>
         
         <md-input-container class="md-icon-float md-block">
@@ -29,10 +31,14 @@
                         <img ng-src="{{user[usuario.login].avatar_url}}" class="md-avatar"/>
                         <strong style="font-size: 20px" hide-gt-sm flex-offset="3">{{user[usuario.login].name}}&nbsp;</strong>
                     </span>
+
+                    <br/>
+
                     <strong hide-xs hide-sm show-gt-md style="font-size: 21px">Nota: {{usuario.nota}}&nbsp;</strong>
+                    <!-- Fonte ajustada para dispositivos moveis -->
                     <strong hide-gt-sm style="font-size: 18px">Nota: {{usuario.nota}}&nbsp;</strong>
                 </md-card-content>
-                <md-card-actions layout="row" layout-align="end start">
+                <md-card-actions layout="row" layout-align="end center" style="margin-top: -25px;">
                     <md-button class="md-warn md-raised md-hue-2" ng-href={{user[usuario.login].html_url}} target="_blank">
                         Visitar página
                     </md-button>
