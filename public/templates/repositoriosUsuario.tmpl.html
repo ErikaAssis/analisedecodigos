@@ -1,9 +1,11 @@
 <div layout="row" layout-wrap class="container" ng-if="is_autenticado()">
     <div flex="100">
         <md-subheader hide-xs hide-sm show-gt-md class="md-no-sticky"><h1>Meus Repositórios</h1></md-subheader>
+
+        <!-- Fonte ajustada para dispositivos moveis -->
         <md-subheader hide-gt-sm class="md-no-sticky"><h2>Meus Repositórios<h2></md-subheader>
         
-        <md-input-container class="md-icon-float md-block"> <!-- ng-if="repositorios.length < 5" -->
+        <md-input-container class="md-icon-float md-block">
             <label>Pesquisar</label>
             <md-icon> <i class="material-icons">search</i></md-icon>
             <input ng-model="criteria">
