@@ -88,8 +88,6 @@ app.controller('RankingRepositorioController', function($rootScope, $scope, Rank
 		for (var i = 0; i < r.length; i++){  
 			$scope.ranking[i]['posicao']  = i + 1;
 		} 
-
-		console.log($scope.ranking)
 	});
 });
 
@@ -97,7 +95,6 @@ app.controller('RankingRepositorioController', function($rootScope, $scope, Rank
 /* Controla repositorios do usuario*/
 app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog, GetUsuario, RankingAPI, config, $cookies){
 	$scope.repositorios = [];
-	$scope.batata = {};
 
   	var user = GetUsuario.getUsuario();
 
@@ -109,10 +106,10 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 
 	$scope.analisarRepositorio = function(ev, repositorio) {
 		var url = config.baseURL + '/analysis/' + repositorio.html_url;
+		$rootScope.nomeRepo = repositorio['name'];
 
 		RankingAPI.getLista(url).then(function(response){
-			$scope.batata = response.data;
-			console.log($scope.batata)
+			$rootScope.informacoes = response.data;
 			$mdDialog.show({
 				controller: DialogController,
 				templateUrl: 'templates/tabDialog.tmpl.html',
@@ -124,6 +121,9 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 	};
  
 	function DialogController($scope, $mdDialog) {
+		$scope.info = $rootScope.informacoes;
+		$scope.nomeRepositorio = $rootScope.nomeRepo;
+
 		$scope.cancel = function() {
 			$mdDialog.cancel();
 		};
