@@ -1,31 +1,89 @@
-<md-dialog ng-controller="ReposController" aria-label="Repositório">
+<md-dialog aria-label="Repositório">
   <form>
     <md-toolbar class="md-hue-2">
       <div class="md-toolbar-tools">
-        <h2>Teste</h2>
+        <h1>Análise do repositório <strong>{{nomeRepositorio}}</strong></h1>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">x</md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:800px;max-height:810px; min-width: 800px;">
+    <md-dialog-content style="max-width:900px;max-height:810px; min-width: 800px;">
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="Nota">
           <md-content class="md-padding">
-            <h1 class="md-display-2">Sua nota foi:</h1>
-            <p>{{batata['nota']}}</p>
+            <h1 class="md-display-2">Sua nota foi: {{info['nota']}}</h1>
+          </md-content>
+        </md-tab>
+        <md-tab label="Análise">
+          <md-content class="md-padding"> 
+            <h3><strong>Quantidade de arquivos analisados:  {{info['files'].length}}</strong></h3>
+            <ul style="list-style-type:disc" ng-repeat="arquivo in info['files']">
+              <li>{{arquivo.split('/')[1]}}</li>
+            </ul>
+            <md-divider></md-divider>
+
+            <h3><strong>Dependências entre módulos</strong></h3>
+            <ul style="list-style-type:disc">
+              <li>{{info['dependences'].split('\n')[0]}}</li>
+              <li>{{info['dependences'].split('\n')[1]}}</li>
+            </ul>
+            <md-divider></md-divider>
+
+            <h3><strong>Erros e advertências por módulo</strong></h3>
+            <ul style="list-style-type:disc" ng-repeat="modulo in info['_errors_/_warnings_by_module']">
+              <h3>{{modulo['module']}}</h3>
+              <li>Error: {{modulo['error']}}</li>
+              <li>Refactor: {{modulo['refactor']}}</li>
+              <li>Convention: {{modulo['convention']}}</li>
+              <li>Warning: {{modulo['warning']}}</li>
+            </ul>
+            <md-divider></md-divider>
+
+            <h3><strong>Estatísticas por tipo</strong></h3>
+            <ul style="list-style-type:disc" ng-repeat="tipo in info['Statistics_by_type']">
+              <h3>Tipo:  {{tipo['type']}}</h3>
+              <li>Quantidade: {{tipo['number']}}</li>
+              <li>Más Nomeações: {{tipo['badname']}}%</li>
+            </ul>
+            <md-divider></md-divider>
+
+            <h3><strong>Declarações presentes no repositório: {{info['statements']}}</strong></h3>
+            <md-divider></md-divider>
+
+            <h3><strong>Mensagens por categoria</strong></h3>
+            <ul style="list-style-type:disc" ng-repeat="categoria in info['Messages_by_category']">
+              <h3>Tipo:  {{categoria['type']}}</h3>
+              <li>Quantidade: {{categoria['number']}}</li>
+            </ul>
+            <br/>
+            <md-divider></md-divider>
+
+            <h3><strong>Mensagens retornadas:  {{info['Messages'].length}}</strong></h3>
+            <div style="margin-left: 3%;"ng-repeat="mensagen in info['Messages']" layout="column">
+              {{mensagen['message_id']}} - {{mensagen['occurrences']}}
+            </div> 
+            <br/>
+            <md-divider></md-divider>
           </md-content>
         </md-tab>
         <md-tab label="Erros">
           <md-content class="md-padding">
-            <h1 class="md-display-2">Erros encontrados</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
-            <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
-            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+            <h2><strong>Foram encontrados {{info['errors'].length}} erros no repositório</strong></h2>
+            <ul style="list-style-type:disc" ng-repeat="erros in info['errors']">
+              <h3>{{erros['message'].split("\n")[0]}}</h3>
+              <li>Módulo: {{erros['module']}}</li>
+              <li>Símbolo: {{erros['symbol']}}</li>
+              <li>Objeto: {{erros['obj']}}</li>
+              <li>Coluna: {{erros['column']}}</li>
+              <li>Linha: {{erros['line']}}</li>
+              <li>Tipo: {{erros['type']}}</li>
+              <br/>
+              <md-divider></md-divider>
+            </ul>
           </md-content>
         </md-tab>
-        <md-tab label="Ranking">
+        <md-tab label="Você no Ranking">
           <md-content class="md-padding">
-            <h1 class="md-display-2">Ranking</h1>
             <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
           </md-content>
         </md-tab>
@@ -33,10 +91,8 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button class="md-warn md-raised md-hue-2" href="http://en.wikipedia.org/wiki/Mango" target="_blank">
-        Ir para repositório
-      </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
 
+ 
