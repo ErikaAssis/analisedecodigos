@@ -2,7 +2,6 @@ var app = angular.module('BomCodigo', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ng
 
 /* Configuraçao do visual*/
 app.config(function($mdThemingProvider) {
-  // Cor do cabeçalho.
   $mdThemingProvider.theme('default')
     .primaryPalette('cyan')
     .accentPalette('orange')
@@ -14,7 +13,7 @@ app.config(function($mdThemingProvider) {
 app.config(['$routeProvider', function($routerProvider){
 	$routerProvider
 		.when('/meus-repositorios', {
-			controller: "ReposController",//"RepositoriosUsuarioController",
+			controller: "ReposController",
 			templateUrl: 'templates/repositoriosUsuario.tmpl.html'
 		})
 		.when('/ranking-usuarios', {
@@ -92,7 +91,7 @@ app.controller('RankingRepositorioController', function($rootScope, $scope, Rank
 });
 
 
-/* Controla repositorios do usuario*/
+/* Controla repositórios do usuario*/
 app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog, GetUsuario, RankingAPI, config, $cookies){
 	$scope.repositorios = [];
 
@@ -168,49 +167,39 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 
 /* Controla login */
 app.controller("LoginController", function($scope, $http, $window, $cookies, config){
-  $scope.login = '';
-  $scope.avatar = ''; 
+	$scope.login = '';
+	$scope.avatar = ''; 
 
-  $scope.is_autenticado = function(){
-    var user = firebase.auth().currentUser;
-    
-    if (user){
-      $scope.user = user.displayName;
-      $scope.avatar = user.photoURL;
-      return true;
-    }else
-      return false;
-  }
+	$scope.is_autenticado = function(){
+	var user = firebase.auth().currentUser;
 
-  $scope.entrar = function(){
+	if (user){
+		$scope.user = user.displayName;
+		$scope.avatar = user.photoURL;
+		return true;
+	}else
+		return false;
+	}
+
+	$scope.entrar = function(){
 	var provider = new firebase.auth.GithubAuthProvider(); 
+
 	firebase.auth().signInWithPopup(provider).then(function(result) {
+		var token = result.credential.accessToken;
+		repositoriosGit = config.baseURLGIT + '/user?access_token=' + token;
 
-	// This gives you a GitHub Access Token. You can use it to access the GitHub API.
-	var token = result.credential.accessToken;
-	repositoriosGit = config.baseURLGIT + '/user?access_token=' + token;
+		$http.get(repositoriosGit).then(function(response) {
+			$cookies.put('login', response.data.login);
+			$window.location.reload();
+		})});
+	}
 
-	$http.get(repositoriosGit).then(function(response) {
-		// Armazena o usuario logado no cookie.
-		$cookies.put('login', response.data.login);
-
-		// Atualiza a pagina apos login.
-		$window.location.reload();
+	$scope.sair = function(){
+		firebase.auth().signOut().then(function() {
+			$cookies.put('login', '')
+			$window.location.reload();  
+		}, function(error) {
+			alert('Erro logout');
 		});
-
-		}).catch(function(error) {
-		// Handle Errors here.
-		var errorCode = error.code;
-		var errorMessage = error.message;
-	});
-  }
-
-  $scope.sair = function(){
-    firebase.auth().signOut().then(function() {
-      $cookies.put('login', '')
-      $window.location.reload();  
-    }, function(error) {
-      alert('Erro logout');
-    });
-  }
-})
+	}
+});
