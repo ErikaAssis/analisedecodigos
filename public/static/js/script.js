@@ -151,7 +151,7 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 			} 
 		});
 
-		RankingAPI.getLista(urli).then(function(response) {         
+		RankingAPI.getLista(urlRankingRepositorios).then(function(response) {         
 			var r = response.data;
 			$scope.rank = r;
 
