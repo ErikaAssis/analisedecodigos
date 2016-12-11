@@ -108,6 +108,14 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 		var url = config.baseURL + '/analysis/' + repositorio.html_url;
 		$rootScope.nomeRepo = repositorio['name'];
 
+		$mdDialog.show({
+	      controller: DialogController,
+	      contentElement: '#myDialog',
+	      parent: angular.element(document.body),
+	      targetEvent: ev,
+	      clickOutsideToClose: false
+	    });
+	    
 		RankingAPI.getLista(url).then(function(response){
 			$rootScope.informacoes = response.data;
 			$mdDialog.show({
