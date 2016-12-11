@@ -11,7 +11,7 @@
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="Nota">
           <md-content class="md-padding">
-            <h1 class="md-display-2">Sua nota foi: {{info['nota']}}/10</h1>
+            <h1 class="md-display-2">Sua nota foi: {{info['nota']}} em 10</h1>
           </md-content>
         </md-tab>
         <md-tab label="Análise">
@@ -65,9 +65,11 @@
             <md-divider></md-divider>
           </md-content>
         </md-tab>
-        <md-tab label="Erros">
+        <md-tab label="PEP 8">
           <md-content class="md-padding">
-            <h2><strong>Foram encontrados {{info['errors'].length}} erros no repositório</strong></h2>
+            <h2 ng-if="info['errors'].length > 1"><strong>Foram encontrados {{info['errors'].length}} itens fora do padrão PEP 8 no repositório {{nomeRepositorio}}:</strong></h2>
+            <h2 ng-if="info['errors'].length == 1"><strong>Foi encontrado {{info['errors'].length}} item fora do padrão PEP 8 no repositório {{nomeRepositorio}}:</strong></h2>
+            <br/>
             <ul ng-repeat="erros in info['errors']">
               <h3>{{erros['message'].split("\n")[0]}}</h3>
               <li>Módulo: <strong>{{erros['module']}}</strong></li>
@@ -103,19 +105,20 @@
         </md-tab>
         <md-tab label="Repositório no Ranking">
           <md-content class="md-padding">
-             <md-list-item ng-repeat="repositorio in rank | filter: criteria" layout="row">
-            <md-card flex="100" ng-style="rank[repositorio.posicao-1].nome == nomeRepositorio ? {'box-shadow': '0 0 16px 6px #ea9118'} : {}">
-                <md-card-content>
+            <md-list flex="100">
+              <md-list-item ng-repeat="repositorio in rank | filter: criteria" layout="row">
+                <md-card flex="100" ng-style="rank[repositorio.posicao-1].nome == nomeRepositorio ? {'box-shadow': '0 0 16px 6px #ea9118'} : {}">
+                  <md-card-content>
                     <span class="md-display-1">
                         {{repositorio.posicao}}º
                         &nbsp;
                         <strong style="font-size: 20px;">{{rank[repositorio.posicao-1].nome}}&nbsp;</strong>
                     </span>
                     <strong style="font-size: 18px">Nota: {{repositorio.nota}}&nbsp;</strong>
-                </md-card-content>
-            </md-card>           
-        </md-list-item>
-    </md-list> 
+                  </md-card-content>
+                </md-card>           
+              </md-list-item>
+            </md-list> 
           </md-content>
         </md-tab>
       </md-tabs>
