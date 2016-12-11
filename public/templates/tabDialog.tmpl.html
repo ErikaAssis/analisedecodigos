@@ -7,7 +7,7 @@
         <md-button class="md-icon-button" ng-click="cancel()">x</md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:900px;max-height:810px; min-width: 800px;">
+    <md-dialog-content id="dialogAnalise" style="max-width:900px;max-height:810px; min-width: 800px;">
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="Nota">
           <md-content class="md-padding">
@@ -17,13 +17,13 @@
         <md-tab label="Análise">
           <md-content class="md-padding"> 
             <h3><strong>Quantidade de arquivos analisados:  {{info['files'].length}}</strong></h3>
-            <ul style="list-style-type:disc" ng-repeat="arquivo in info['files']">
+            <ul ng-repeat="arquivo in info['files']">
               <li>{{arquivo.split('/')[1]}}</li>
             </ul>
             <md-divider></md-divider>
 
             <h3><strong>Erros e advertências por módulo</strong></h3>
-            <ul style="list-style-type:disc" ng-repeat="modulo in info['_errors_/_warnings_by_module']">
+            <ul ng-repeat="modulo in info['_errors_/_warnings_by_module']">
               <h3>{{modulo['module']}}</h3>
               <li>Erros de programação: {{modulo['error']}}</li>
               <li>Advertências: {{modulo['warning']}}%</li>
@@ -33,7 +33,7 @@
             <md-divider></md-divider>
 
             <h3><strong>Estatísticas por tipo</strong></h3>
-            <ul style="list-style-type:disc" ng-repeat="tipo in info['Statistics_by_type']">
+            <ul ng-repeat="tipo in info['Statistics_by_type']">
               <h3>Tipo:  {{tipo['type']}}</h3>
               <li>Quantidade: {{tipo['number']}}</li>
               <li>Más Nomeações: {{tipo['badname']}}%</li>
@@ -44,13 +44,13 @@
             <md-divider></md-divider>
 
             <h3><strong>Duplicações no código fonte</strong></h3>
-            <ul style="list-style-type:disc">
+            <ul>
               <li>Quantidade de linhas duplicadas: {{info['Duplication']['now']}}</li>
             </ul>
             <md-divider></md-divider>
 
             <h3><strong>Mensagens por categoria</strong></h3>
-            <ul style="list-style-type:disc" ng-repeat="categoria in info['Messages_by_category']">
+            <ul ng-repeat="categoria in info['Messages_by_category']">
               <h3>Tipo:  {{categoria['type']}}</h3>
               <li>Quantidade: {{categoria['number']}}</li>
             </ul>
@@ -68,7 +68,7 @@
         <md-tab label="Erros">
           <md-content class="md-padding">
             <h2><strong>Foram encontrados {{info['errors'].length}} erros no repositório</strong></h2>
-            <ul style="list-style-type:disc" ng-repeat="erros in info['errors']">
+            <ul ng-repeat="erros in info['errors']">
               <h3>{{erros['message'].split("\n")[0]}}</h3>
               <li>Módulo: <strong>{{erros['module']}}</strong></li>
               <li>Símbolo: {{erros['symbol']}}</li>
