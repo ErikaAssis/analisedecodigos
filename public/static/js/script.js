@@ -129,14 +129,41 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 	};
  
 	function DialogController($scope, $mdDialog) {
+		var urlRanking = config.baseURL + '/ranking',
+			urlRankingRepositorios = config.baseURL + '/ranking/repos';
+
+		$scope.ranking = [];
+		$scope.rank = [];
+		$scope.user = {};
 		$scope.info = $rootScope.informacoes;
 		$scope.nomeRepositorio = $rootScope.nomeRepo;
+		$scope.nomeUsuario = GetUsuario.getUsuario();
+
+		RankingAPI.getLista(urlRanking).then(function(response) {         
+			var r = response.data;
+			$scope.ranking = r;
+
+			for (var i = 0; i < r.length; i++){  
+				$scope.ranking[i]['posicao']  = i + 1;
+				RankingAPI.getLista('https://api.github.com/users/'+ r[i].login).then(function(response) {  
+					$scope.user[response.data.login] = response.data;
+				});
+			} 
+		});
+
+		RankingAPI.getLista(urli).then(function(response) {         
+			var r = response.data;
+			$scope.rank = r;
+
+			for (var i = 0; i < r.length; i++){  
+				$scope.rank[i]['posicao']  = i + 1;
+			} 
+		});
 
 		$scope.cancel = function() {
 			$mdDialog.cancel();
 		};
 	}
-
 });
 
 /* Controla login */
