@@ -7,11 +7,11 @@
         <md-button class="md-icon-button" ng-click="cancel()">x</md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content id="dialogAnalise" style="max-width:900px;max-height:810px; min-width: 800px;">
+    <md-dialog-content style="max-width:900px;max-height:810px; min-width: 850px;">
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="Nota">
           <md-content class="md-padding">
-            <h1 class="md-display-2">Sua nota foi: {{info['nota']}}</h1>
+            <h1 class="md-display-2">Sua nota foi: {{info['nota']}}/10</h1>
           </md-content>
         </md-tab>
         <md-tab label="Análise">
@@ -83,7 +83,39 @@
         </md-tab>
         <md-tab label="Você no Ranking">
           <md-content class="md-padding">
-            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+             <md-list flex="100">
+                <md-list-item ng-repeat="usuario in ranking" layout="row">
+                    <md-card flex="100" ng-style="usuario.login == nomeUsuario ? {'box-shadow': '0 0 16px 6px #ea9118'} : {}">
+                        <md-card-content>
+                            <span class="md-display-1">
+                                {{usuario.posicao}}º
+                                &nbsp;
+                                <img ng-src="{{user[usuario.login].avatar_url}}" class="md-avatar"/>
+                                <strong style="font-size: 20px;" flex-offset="3">{{user[usuario.login].name}}&nbsp;</strong>
+                            </span>
+                            <br/>
+                            <strong style="font-size: 18px">Nota: {{usuario.nota}}&nbsp;</strong>
+                        </md-card-content>
+                    </md-card>           
+                </md-list-item>
+              </md-list> 
+          </md-content>
+        </md-tab>
+        <md-tab label="Repositório no Ranking">
+          <md-content class="md-padding">
+             <md-list-item ng-repeat="repositorio in rank | filter: criteria" layout="row">
+            <md-card flex="100" ng-style="rank[repositorio.posicao-1].nome == nomeRepositorio ? {'box-shadow': '0 0 16px 6px #ea9118'} : {}">
+                <md-card-content>
+                    <span class="md-display-1">
+                        {{repositorio.posicao}}º
+                        &nbsp;
+                        <strong style="font-size: 20px;">{{rank[repositorio.posicao-1].nome}}&nbsp;</strong>
+                    </span>
+                    <strong style="font-size: 18px">Nota: {{repositorio.nota}}&nbsp;</strong>
+                </md-card-content>
+            </md-card>           
+        </md-list-item>
+    </md-list> 
           </md-content>
         </md-tab>
       </md-tabs>
