@@ -22,20 +22,13 @@
             </ul>
             <md-divider></md-divider>
 
-            <h3><strong>Dependências entre módulos</strong></h3>
-            <ul style="list-style-type:disc">
-              <li>{{info['dependences'].split('\n')[0]}}</li>
-              <li>{{info['dependences'].split('\n')[1]}}</li>
-            </ul>
-            <md-divider></md-divider>
-
             <h3><strong>Erros e advertências por módulo</strong></h3>
             <ul style="list-style-type:disc" ng-repeat="modulo in info['_errors_/_warnings_by_module']">
               <h3>{{modulo['module']}}</h3>
-              <li>Error: {{modulo['error']}}</li>
-              <li>Refactor: {{modulo['refactor']}}</li>
-              <li>Convention: {{modulo['convention']}}</li>
-              <li>Warning: {{modulo['warning']}}</li>
+              <li>Erros de programação: {{modulo['error']}}</li>
+              <li>Advertências: {{modulo['warning']}}%</li>
+              <li>Violação das boas práticas: {{modulo['refactor']}}%</li>
+              <li>Violação do padrão de codificação: {{modulo['convention']}}%</li>     
             </ul>
             <md-divider></md-divider>
 
@@ -48,6 +41,12 @@
             <md-divider></md-divider>
 
             <h3><strong>Declarações presentes no repositório: {{info['statements']}}</strong></h3>
+            <md-divider></md-divider>
+
+            <h3><strong>Duplicações no código fonte</strong></h3>
+            <ul style="list-style-type:disc">
+              <li>Quantidade de linhas duplicadas: {{info['Duplication']['now']}}</li>
+            </ul>
             <md-divider></md-divider>
 
             <h3><strong>Mensagens por categoria</strong></h3>
@@ -71,7 +70,7 @@
             <h2><strong>Foram encontrados {{info['errors'].length}} erros no repositório</strong></h2>
             <ul style="list-style-type:disc" ng-repeat="erros in info['errors']">
               <h3>{{erros['message'].split("\n")[0]}}</h3>
-              <li>Módulo: {{erros['module']}}</li>
+              <li>Módulo: <strong>{{erros['module']}}</strong></li>
               <li>Símbolo: {{erros['symbol']}}</li>
               <li>Objeto: {{erros['obj']}}</li>
               <li>Coluna: {{erros['column']}}</li>
