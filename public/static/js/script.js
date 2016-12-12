@@ -2,10 +2,12 @@ var app = angular.module('BomCodigo', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ng
 
 /* Configuraçao do visual*/
 app.config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default')
-    .primaryPalette('cyan')
-    .accentPalette('orange')
-    .warnPalette('orange');
+  $mdThemingProvider.theme('default').primaryPalette('cyan').accentPalette('orange').warnPalette('orange');
+  $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
+  $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
+  $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+  $mdThemingProvider.theme('dark-red').backgroundPalette('red').dark();
+  $mdThemingProvider.theme('dark-green').backgroundPalette('green').dark();
 });
 
 
