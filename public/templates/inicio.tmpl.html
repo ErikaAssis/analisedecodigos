@@ -1,107 +1,119 @@
 <div layout="row" layout-wrap class="container">
-	<md-content class="page-container">
-		<md-card class="page" style="padding-left: 20px;">
-            <p class="md-display-2"><strong>Bom Código</strong> é o produto final do trabalho da disciplina de WebService em 2016, curso de Sistemas Para Internet, Instituto Federal do Sudeste de Minas Gerais - campus Barbacena.</p>
-        	<h2>Desenvolvido por:<br/>		
-			<span style="margin-left: 5%">Érika Cristina Santos de Assis, 4º Período;</span><br/>
-			<span style="margin-left: 5%">Luciano Carlos, 4º Período.</span></h2>
+	<md-content class="page-container" style="margin-left: -18px; margin-right: -16px;">
+		<section layout="row" style="color: rgb(255,109,0);">
+			<h1 class="md-display-2" style="padding-left: 20px; text-align: center;">Bom código realiza a análise de repositórios do GitHub, desenvolvidos em Python, utilizando o Pylint e gera um ranking para seus usuários e outro ranking para os repositórios.</h1>
+		</section>
+
+		<section style="margin-top: 20px; padding-left: 30px; background-color: rgba(224, 224, 224, 0.42);" layout="row">
+			<h1 class="md-display-2">O Pylint realiza análise baseado no Guia de Estilo PEP 8 (convenção com padrões de codificação), e atribui uma pontuação à cada repositório analisado, pontuação essa que tem como maior nota a 10.</h1>
+			<div style="margin-right: 50px">
+				<img style="width: 250px; margin-left: 15px; margin-top: 15px;" src="../static/img/trofeu.png">
+			</div>
+		</section>
+			
+		<section style="margin-top: 20px;">
+			<md-card layout="row">
+			<div><img style="width: 500px;" src="../static/img/git.gif"></div>
+			<h1 class="md-display-2" style="padding-left: 20px;">A visualização dos rankings é liberada para qualquer usuário ou visitante da página, já para a realização da análise dos repositórios é obrigatória o login e autenticação no GitHub.</h1>
+			</md-card>
+		</section>
 		
-			<md-card flex="80"><h1 class="md-display-2" style="padding-left: 20px;">Bom código realiza a análise de repositórios do GitHub, desenvolvidos em Python, utilizando o Pylint e gera um ranking para seus usuários e outro ranking para os repositórios.</h1></md-card>
+		<section>
+			<md-content class="md-padding" layout-xs="column" layout="row" style="background-color: #1881c1">
+				<h1 class="md-display-2" style="color: rgb(255, 255, 255);">Ferramentas utilizadas no desenvolvimento do Bom Código</h1>
+			    <div flex-xs flex-gt-xs="50" layout="column">
+					<md-card md-theme="dark-blue" md-theme-watch>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">Firebase</span>
+								<span class="md-subhead">Hospedagem da aplicação</span>
+							</md-card-title-text>
+							<md-card-title-media>
+								<div class="md-media-lg card-media">
+									<img src="../static/img/fb.png">
+								</div>
+							</md-card-title-media>
+						</md-card-title>
+						<md-card-actions layout="row" layout-align="end center">
+							<md-button ng-href="https://firebase.google.com/?hl=pt-br" target="_blank">Visitar</md-button>
+						</md-card-actions>
+					</md-card>
+					<md-card md-theme="dark-green" md-theme-watch>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">Python</span>
+								<span class="md-subhead">Desenvolvimento do servidor</span>
+							</md-card-title-text>
+							<md-card-title-media>
+								<div class="md-media-lg card-media">
+									<img src="../static/img/pt.png">
+								</div>
+							</md-card-title-media>
+						</md-card-title>
+						<md-card-actions layout="row" layout-align="end center">
+							<md-button ng-href="https://www.python.org/" target="_blank">Visitar</md-button>
+						</md-card-actions>
+					</md-card>
+			    </div>
 
-			<md-card flex="50"><h1 class="md-display-2" style="padding-left: 20px;">A visualização dos rankings é liberada para qualquer usuário ou visitante da página, já para a realização da análise dos repositórios é obrigatória o login e autenticação no GitHub.</h1></md-card>
+			    <div flex-xs flex-gt-xs="50" layout="column">
+					<md-card md-theme="dark-purple" md-theme-watch>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">Heroku</span>
+								<span class="md-subhead">Hospedagem do servidor</span>
+							</md-card-title-text>
+							<md-card-title-media>
+								<div class="md-media-sm card-media">
+									<img src="../static/img/hr.png">
+								</div>
+							</md-card-title-media>
+						</md-card-title>
+						<md-card-actions layout="row" layout-align="end center">
+							<md-button ng-href="https://www.heroku.com/" target="_blank">Visitar</md-button>
+						</md-card-actions>
+					</md-card>
+					<md-card md-theme="dark-orange" md-theme-watch>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">Pylint</span>
+								<span class="md-subhead">Utilizado para realizar a análise dos códigos</span>
+							</md-card-title-text>
+							<md-card-title-media>
+								<div class="md-media-md card-media">
+									<img src="../static/img/pylint.svg">
+								</div>
+							</md-card-title-media>
+						</md-card-title>
+						<md-card-actions layout="row" layout-align="end center">
+							<md-button ng-href="https://www.pylint.org/" target="_blank">Visitar</md-button>
+						</md-card-actions>
+					</md-card>
+					<md-card md-theme="dark-red" md-theme-watch>
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">AngularJS</span>
+								<span class="md-subhead">Desenvolvimento da aplicação web</span>
+							</md-card-title-text>
+							<md-card-title-media>
+								<div class="md-media-sm card-media">
+									<img src="../static/img/ajs.png">
+								</div>
+							</md-card-title-media>
+						</md-card-title>
+						<md-card-actions layout="row" layout-align="end center">
+							<md-button ng-href="https://angularjs.org/" target="_blank">Visitar</md-button>
+						</md-card-actions>
+					</md-card>
+			    </div>
+		  	</md-content>
+		</section>
 
-			<div><h1 class="md-display-2">O Pylint realiza análise baseado no Guia de Estilo PEP 8 (convenção com padrões de codificação), e atribui uma pontuação à cada repositório analisado, pontuação essa que tem como maior nota a 10.</h1></div>
-
-			<section>
-				<md-content class="md-padding" layout-xs="column" layout="row" style="margin-right: 20px; margin-bottom: 20px;">
-					<h1 class="md-display-2" style="color: rgb(0, 131, 143); text-shadow: -1px 1px 1px rgba(0,172,193,1);">Ferramentas utilizados no desenvolvimento do Bom Código</h1>
-				    <div flex-xs flex-gt-xs="50" layout="column">
-						<md-card md-theme="dark-blue" md-theme-watch>
-							<md-card-title>
-								<md-card-title-text>
-									<span class="md-headline">Firebase</span>
-									<span class="md-subhead">Hospedagem da aplicação</span>
-								</md-card-title-text>
-								<md-card-title-media>
-									<div class="md-media-lg card-media">
-										<img src="../static/img/fb.png">
-									</div>
-								</md-card-title-media>
-							</md-card-title>
-							<md-card-actions layout="row" layout-align="end center">
-								<md-button ng-href="https://firebase.google.com/?hl=pt-br" target="_blank">Visitar</md-button>
-							</md-card-actions>
-						</md-card>
-						<md-card md-theme="dark-green" md-theme-watch>
-							<md-card-title>
-								<md-card-title-text>
-									<span class="md-headline">Python</span>
-									<span class="md-subhead">Desenvolvimento do servidor</span>
-								</md-card-title-text>
-								<md-card-title-media>
-									<div class="md-media-lg card-media">
-										<img src="../static/img/pt.png">
-									</div>
-								</md-card-title-media>
-							</md-card-title>
-							<md-card-actions layout="row" layout-align="end center">
-								<md-button ng-href="https://www.python.org/" target="_blank">Visitar</md-button>
-							</md-card-actions>
-						</md-card>
-				    </div>
-
-				    <div flex-xs flex-gt-xs="50" layout="column">
-						<md-card md-theme="dark-purple" md-theme-watch>
-							<md-card-title>
-								<md-card-title-text>
-									<span class="md-headline">Heroku</span>
-									<span class="md-subhead">Hospedagem do servidor</span>
-								</md-card-title-text>
-								<md-card-title-media>
-									<div class="md-media-sm card-media">
-										<img src="../static/img/hr.png">
-									</div>
-								</md-card-title-media>
-							</md-card-title>
-							<md-card-actions layout="row" layout-align="end center">
-								<md-button ng-href="https://www.heroku.com/" target="_blank">Visitar</md-button>
-							</md-card-actions>
-						</md-card>
-						<md-card md-theme="dark-orange" md-theme-watch>
-							<md-card-title>
-								<md-card-title-text>
-									<span class="md-headline">Pylint</span>
-									<span class="md-subhead">Utilizado para realizar a análise dos códigos</span>
-								</md-card-title-text>
-								<md-card-title-media>
-									<div class="md-media-md card-media">
-										<img src="../static/img/pylint.svg">
-									</div>
-								</md-card-title-media>
-							</md-card-title>
-							<md-card-actions layout="row" layout-align="end center">
-								<md-button ng-href="https://www.pylint.org/" target="_blank">Visitar</md-button>
-							</md-card-actions>
-						</md-card>
-						<md-card md-theme="dark-red" md-theme-watch>
-							<md-card-title>
-								<md-card-title-text>
-									<span class="md-headline">AngularJS</span>
-									<span class="md-subhead">Desenvolvimento da aplicação web</span>
-								</md-card-title-text>
-								<md-card-title-media>
-									<div class="md-media-sm card-media">
-										<img src="../static/img/ajs.png">
-									</div>
-								</md-card-title-media>
-							</md-card-title>
-							<md-card-actions layout="row" layout-align="end center">
-								<md-button ng-href="https://angularjs.org/" target="_blank">Visitar</md-button>
-							</md-card-actions>
-						</md-card>
-				    </div>
-			  	</md-content>
-			</section>
-       	</md-card>
+		<section>
+		    <h1 class="md-display-1" style="text-align: center;"><strong>Bom Código</strong> é o produto final do trabalho da disciplina de WebService em 2016, curso de Sistemas Para Internet, Instituto Federal do Sudeste de Minas Gerais - campus Barbacena.</h1>
+			<h3 style="margin-left: 2%">Desenvolvido por:<br/>		
+			<span style="margin-left: 5%">Érika Cristina Santos de Assis, 4º Período;</span><br/>
+			<span style="margin-left: 5%">Luciano Carlos, 4º Período.</span></h3>
+		</section>
 	</md-content>
 </div>
