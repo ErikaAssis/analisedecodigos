@@ -43,7 +43,9 @@
 
                 </md-card-content>
                 <md-card-actions layout="row" layout-align="end start">
-                    <md-button class="md-warn md-raised md-hue-2" ng-href={{user[usuario.login].html_url}} target="_blank">
+                    <md-button class="md-warn md-raised md-hue-2" 
+                    ng-href="https://github.com/{{ranking[repositorio.posicao-1].usuario['login']}}/{{ranking[repositorio.posicao-1].nome}}"
+                    target="_blank">
                         Visitar repositório
                     </md-button>
                 </md-card-actions>
