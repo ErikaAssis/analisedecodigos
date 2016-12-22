@@ -1,6 +1,6 @@
 var app = angular.module('BomCodigo', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngCookies']);
 
-/* Configuraçao do visual*/
+/* Configuração do tema*/
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('cyan').accentPalette('orange').warnPalette('orange');
   $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
@@ -11,7 +11,7 @@ app.config(function($mdThemingProvider) {
 });
 
 
-/* Configuraçao de rotas*/
+/*Configuração de rotas*/
 app.config(['$routeProvider', function($routerProvider){
 	$routerProvider
 		.when('/meus-repositorios', {
@@ -35,7 +35,7 @@ app.config(['$routeProvider', function($routerProvider){
 }]);
 
 
-/* Realiza requisiçao ajax */
+/*Realiza requisição*/
 app.factory('RankingAPI', function($http){
 	var _getLista =  function(url){
 		return $http.get(url);
@@ -45,7 +45,7 @@ app.factory('RankingAPI', function($http){
 	};
 });
 
-/* Retorna o usuario logado no momento. */
+/*Retorna o usuário*/
 app.factory('GetUsuario', function($cookies){
     var _getUsuario =  function(){
        return $cookies.get('login');
@@ -56,7 +56,7 @@ app.factory('GetUsuario', function($cookies){
 });
 
 
-/* Controla ranking*/
+/*Controla ranking de usuário*/
 app.controller('RankingUsuarioController', function($rootScope, $scope, RankingAPI, config){
 	var url = config.baseURL + '/ranking';
 
@@ -69,14 +69,14 @@ app.controller('RankingUsuarioController', function($rootScope, $scope, RankingA
 
 		for (var i = 0; i < r.length; i++){  
 			$scope.ranking[i]['posicao']  = i + 1;
-			RankingAPI.getLista('https://api.github.com/users/'+ r[i].login).then(function(response) {  
+			RankingAPI.getLista('https://api.github.com/users/'+ r[i].login + config.tokenPadrao).then(function(response) {  
 				$scope.user[response.data.login] = response.data;
 			});
 		} 
 	});
 });
 
-/* Controla ranking repositórios*/
+/*Controla ranking de repositórios*/
 app.controller('RankingRepositorioController', function($rootScope, $scope, RankingAPI, config){
 	var url = config.baseURL + '/ranking/repos';
 
@@ -93,14 +93,14 @@ app.controller('RankingRepositorioController', function($rootScope, $scope, Rank
 });
 
 
-/* Controla repositórios do usuario*/
+/*Controla repositórios do usuário*/
 app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog, GetUsuario, RankingAPI, config, $cookies){
 	$scope.repositorios = [];
 
   	var user = GetUsuario.getUsuario();
 
 	if(user != ''){
-		RankingAPI.getLista('https://api.github.com/users/'+ user +'/repos').then (function(response) {
+		RankingAPI.getLista('https://api.github.com/users/'+ user +'/repos' + config.tokenPadrao).then (function(response) {
 		  $scope.repositorios = response.data;
 		});
 	}
@@ -146,7 +146,7 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 
 			for (var i = 0; i < r.length; i++){  
 				$scope.ranking[i]['posicao']  = i + 1;
-				RankingAPI.getLista('https://api.github.com/users/'+ r[i].login).then(function(response) {  
+				RankingAPI.getLista('https://api.github.com/users/'+ r[i].login + config.tokenPadrao).then(function(response) {  
 					$scope.user[response.data.login] = response.data;
 				});
 			} 
@@ -167,7 +167,7 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 	}
 });
 
-/* Controla login */
+/*Controla login e logout*/
 app.controller("LoginController", function($scope, $http, $window, $cookies, config){
 	$scope.login = '';
 	$scope.avatar = ''; 
