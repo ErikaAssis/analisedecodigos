@@ -69,7 +69,8 @@ app.controller('RankingUsuarioController', function($rootScope, $scope, RankingA
 
 		for (var i = 0; i < r.length; i++){  
 			$scope.ranking[i]['posicao']  = i + 1;
-			RankingAPI.getLista('https://api.github.com/users/'+ r[i].login + config.tokenPadrao).then(function(response) {  
+
+			RankingAPI.getLista('https://api.github.com/users/'+ r[i].login + $rootScope.token).then(function(response) {  
 				$scope.user[response.data.login] = response.data;
 			});
 		} 
@@ -100,7 +101,7 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
   	var user = GetUsuario.getUsuario();
 
 	if(user != ''){
-		RankingAPI.getLista('https://api.github.com/users/'+ user +'/repos' + config.tokenPadrao).then (function(response) {
+		RankingAPI.getLista('https://api.github.com/users/'+ user +'/repos' + $rootScope.token).then (function(response) {
 		  $scope.repositorios = response.data;
 		});
 	}
@@ -146,7 +147,7 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 
 			for (var i = 0; i < r.length; i++){  
 				$scope.ranking[i]['posicao']  = i + 1;
-				RankingAPI.getLista('https://api.github.com/users/'+ r[i].login + config.tokenPadrao).then(function(response) {  
+				RankingAPI.getLista('https://api.github.com/users/'+ r[i].login + $rootScope.token).then(function(response) {  
 					$scope.user[response.data.login] = response.data;
 				});
 			} 
@@ -168,9 +169,10 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 });
 
 /*Controla login e logout*/
-app.controller("LoginController", function($scope, $http, $window, $cookies, config){
+app.controller("LoginController", function($scope, $rootScope, $http, $window, $cookies, config){
 	$scope.login = '';
 	$scope.avatar = ''; 
+	$rootScope.token = '';
 
 	$scope.is_autenticado = function(){
 	var user = firebase.auth().currentUser;
@@ -187,8 +189,8 @@ app.controller("LoginController", function($scope, $http, $window, $cookies, con
 	var provider = new firebase.auth.GithubAuthProvider(); 
 
 	firebase.auth().signInWithPopup(provider).then(function(result) {
-		var token = result.credential.accessToken;
-		repositoriosGit = config.baseURLGIT + '/user?access_token=' + token;
+		$rootScope.token = result.credential.accessToken;
+		repositoriosGit = config.baseURLGIT + '/user?access_token=' + $rootScope.token;
 
 		$http.get(repositoriosGit).then(function(response) {
 			$cookies.put('login', response.data.login);
