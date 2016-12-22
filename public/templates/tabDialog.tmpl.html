@@ -15,6 +15,7 @@
           </md-content>
         </md-tab>
         <md-tab label="Análise">
+          <h1 ng-if="info['err'] == true">Ocorreu um erro ao receber as informações</h1>
           <md-content class="md-padding"> 
             <h3><strong>Quantidade de arquivos analisados:  {{info['files'].length}}</strong></h3>
             <ul ng-repeat="arquivo in info['files']">
