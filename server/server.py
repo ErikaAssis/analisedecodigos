@@ -8,20 +8,24 @@ from fnmatch import filter as filtro
 from os import popen, system, walk
 from shutil import rmtree
 
+from flask import send_from_directory
 from flask import Flask
+
+from flask_cors import CORS
 
 from git_utils import git_clone
 
 from usuario import Usuario
 from repos import Repos
-from flask_cors import CORS
-
 import banco
 import settings
 
-app = Flask(__name__)
 
+# Servidor HTTP
+app = Flask(__name__)
 CORS(app)
+
+TEMPLATE_DIR = './templates/'
 
 # Comando a ser executado pelo pylint.
 __COMANDO_PYLINT__ = 'pylint --load-plugins=x -f x  --persistent=n --files-output=y {0}'
@@ -93,9 +97,11 @@ def remove_tmp():
 
 @app.route('/')
 def hello_world():
-    ''' Ajuda do programa '''
-
-    return open('template/ajuda.html').read()
+    '''
+        Ajuda do programa
+    '''
+    print TEMPLATE_DIR + 'ajuda.html'
+    return send_from_directory(TEMPLATE_DIR, 'ajuda.html')
 
 
 @app.route('/analysis/<path:url_repos>', methods=['GET'])
