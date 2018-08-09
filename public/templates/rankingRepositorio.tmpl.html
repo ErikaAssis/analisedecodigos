@@ -1,9 +1,6 @@
 <div layout="row" layout-wrap class="container">
     <div flex="100">
-        <md-subheader hide-xs hide-sm show-gt-md class="md-no-sticky"><h1>Ranking Repositórios</h1></md-subheader>
-        
-        <!-- Fonte ajustada para dispositivos moveis -->
-        <md-subheader hide-gt-sm class="md-no-sticky"><h2>Ranking Repositórios</h2></md-subheader>
+        <md-subheader  class="md-no-sticky"><h4>Classificação dos Repositórios</h4></md-subheader>
         
         <md-input-container class="md-icon-float md-block">
             <label>Pesquisar</label>
@@ -18,22 +15,15 @@
         <md-list-item ng-repeat="repositorio in ranking | filter: criteria" layout="row">
             <md-card flex="100" style="box-shadow: 0px 0px 1px 0px rgb(0,172,193);">
                 <md-card-content>
-                    <span hide-xs hide-sm show-gt-md class="md-display-2">
+                    <span class="md-display-1">
                         {{repositorio.posicao}}º
                         &nbsp;
-                        <strong style="font-size: 25px;" hide-xs hide-sm show-gt-md>{{ranking[repositorio.posicao-1].nome}}&nbsp;</strong>
+                        <strong style="font-size: 18px;">{{ranking[repositorio.posicao-1].nome}}&nbsp;</strong>
                     </span>
-                    <!-- Fonte ajustada para dispositivos moveis -->
-                    <span hide-gt-sm class="md-display-1">
-                        {{repositorio.posicao}}º
-                        <strong style="font-size: 20px" hide-gt-sm>{{ranking[repositorio.posicao-1].nome}}&nbsp;</strong>
-                    </span>
-
+                    
                     <br/>
 
-                    <strong hide-xs hide-sm show-gt-md style="font-size: 21px">Nota: {{repositorio.nota}}&nbsp;</strong>
-                    <!-- Fonte ajustada para dispositivos moveis -->
-                    <strong hide-gt-sm style="font-size: 17px">Nota: {{repositorio.nota}}&nbsp;</strong>
+                    <strong style="font-size: 15px">Nota: {{repositorio.nota}}&nbsp;</strong>
 
                     <br/>
 
@@ -46,12 +36,12 @@
                     <md-button class="md-warn md-raised md-hue-2" 
                     ng-href="https://github.com/{{ranking[repositorio.posicao-1].usuario['login']}}/{{ranking[repositorio.posicao-1].nome}}"
                     target="_blank">
-                        Visitar repositório
-                    </md-button>
-                </md-card-actions>
-            </md-card>           
-        </md-list-item>
-    </md-list> 
+                    Visitar repositório
+                </md-button>
+            </md-card-actions>
+        </md-card>           
+    </md-list-item>
+</md-list> 
 </div>
 
 

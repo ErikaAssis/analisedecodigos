@@ -1,8 +1,8 @@
 var app = angular.module('BomCodigo', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngCookies']);
 
-/* Configuraçao do visual*/
+/* Configuração do tema*/
 app.config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default').primaryPalette('cyan').accentPalette('orange').warnPalette('orange');
+  $mdThemingProvider.theme('default').primaryPalette('blue').accentPalette('orange').warnPalette('orange');
   $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
   $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
   $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
@@ -11,9 +11,13 @@ app.config(function($mdThemingProvider) {
 });
 
 
-/* Configuraçao de rotas*/
+/*Configuração de rotas*/
 app.config(['$routeProvider', function($routerProvider){
 	$routerProvider
+		.when('/', {
+			controller: 'LoginController',
+			templateUrl: 'templates/inicio.tmpl.html'
+		})
 		.when('/meus-repositorios', {
 			controller: "ReposController",
 			templateUrl: 'templates/repositoriosUsuario.tmpl.html'
@@ -26,16 +30,86 @@ app.config(['$routeProvider', function($routerProvider){
 			controller: "RankingRepositorioController",
 			templateUrl: 'templates/rankingRepositorio.tmpl.html'
 		})
-	  	.when('/', {
-      		templateUrl: 'templates/inicio.tmpl.html'
-    })
-    .otherwise({
-  		templateUrl: 'templates/pageNotFound.tmpl.html'
-	});
+	    .otherwise({
+	    	redirectTo: '/'
+	  		//templateUrl: 'templates/pageNotFound.tmpl.html'
+		});
 }]);
 
 
-/* Realiza requisiçao ajax */
+/*Controla login e logout*/
+app.controller("LoginController", function($scope, $rootScope, $http, $window, $cookies, $route, $location, config){
+	
+	
+	$scope.is_autenticado = function(){
+		var user = firebase.auth().currentUser;
+		
+		// firebase.auth().onAuthStateChanged(function(user) {
+		    
+		//     if (user) {
+		//       // User is signed in.
+		//       //console.log('logado')
+		//       	$scope.t = true;
+		//     	
+		//     } else {
+		//       // User is signed out.
+		//      	//console.log('não')
+		//      	$scope.t = false;
+		//     }
+		// })
+
+		// if (user){
+		
+		// 	//return true;
+		// }else
+	
+		if ($cookies.get('login') == '')
+			return false;
+		
+		if (user != null){
+			$scope.user = user.displayName;
+			$scope.avatar = user.photoURL;
+		}
+		return true
+	}
+	
+	
+	//alert('Logado: ' + !!firebase.auth().currentUser)
+	$scope.entrar = function(){
+		//alert('Logado: ' + !!firebase.auth().currentUser)
+		
+		if (!firebase.auth().currentUser) {
+
+			var provider = new firebase.auth.GithubAuthProvider(); 
+
+			firebase.auth().signInWithPopup(provider).then(function(result) {
+				$rootScope.token = result.credential.accessToken;
+				
+				// Obtém repositórios
+				repositoriosGit = config.baseURLGIT + '/user?access_token=' + $rootScope.token;
+
+				$http.get(repositoriosGit).then(function(response) {
+					$cookies.put('login', response.data.login);
+					$cookies.put('token', result.credential.accessToken);
+					//$window.location.reload();
+			})});
+		}
+	}
+
+	$scope.sair = function(){
+		firebase.auth().signOut().then(function() {
+			$cookies.put('login', '')
+			$window.location.href = '/'
+		}, function(error) {
+			alert('Erro logout');
+		});
+	}
+});
+
+
+
+
+/*Realiza requisição*/
 app.factory('RankingAPI', function($http){
 	var _getLista =  function(url){
 		return $http.get(url);
@@ -45,7 +119,7 @@ app.factory('RankingAPI', function($http){
 	};
 });
 
-/* Retorna o usuario logado no momento. */
+/*Retorna o usuário*/
 app.factory('GetUsuario', function($cookies){
     var _getUsuario =  function(){
        return $cookies.get('login');
@@ -56,7 +130,7 @@ app.factory('GetUsuario', function($cookies){
 });
 
 
-/* Controla ranking*/
+/*Controla ranking de usuário*/
 app.controller('RankingUsuarioController', function($rootScope, $scope, RankingAPI, config){
 	var url = config.baseURL + '/ranking';
 
@@ -69,14 +143,16 @@ app.controller('RankingUsuarioController', function($rootScope, $scope, RankingA
 
 		for (var i = 0; i < r.length; i++){  
 			$scope.ranking[i]['posicao']  = i + 1;
+
 			RankingAPI.getLista('https://api.github.com/users/'+ r[i].login).then(function(response) {  
 				$scope.user[response.data.login] = response.data;
+				
 			});
 		} 
 	});
 });
 
-/* Controla ranking repositórios*/
+/*Controla ranking de repositórios*/
 app.controller('RankingRepositorioController', function($rootScope, $scope, RankingAPI, config){
 	var url = config.baseURL + '/ranking/repos';
 
@@ -93,7 +169,7 @@ app.controller('RankingRepositorioController', function($rootScope, $scope, Rank
 });
 
 
-/* Controla repositórios do usuario*/
+/*Controla repositórios do usuário*/
 app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog, GetUsuario, RankingAPI, config, $cookies){
 	$scope.repositorios = [];
 
@@ -167,41 +243,5 @@ app.controller('ReposController', function($http, $rootScope, $scope, $mdDialog,
 	}
 });
 
-/* Controla login */
-app.controller("LoginController", function($scope, $http, $window, $cookies, config){
-	$scope.login = '';
-	$scope.avatar = ''; 
 
-	$scope.is_autenticado = function(){
-	var user = firebase.auth().currentUser;
 
-	if (user){
-		$scope.user = user.displayName;
-		$scope.avatar = user.photoURL;
-		return true;
-	}else
-		return false;
-	}
-
-	$scope.entrar = function(){
-	var provider = new firebase.auth.GithubAuthProvider(); 
-
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-		var token = result.credential.accessToken;
-		repositoriosGit = config.baseURLGIT + '/user?access_token=' + token;
-
-		$http.get(repositoriosGit).then(function(response) {
-			$cookies.put('login', response.data.login);
-			$window.location.reload();
-		})});
-	}
-
-	$scope.sair = function(){
-		firebase.auth().signOut().then(function() {
-			$cookies.put('login', '')
-			$window.location.reload();  
-		}, function(error) {
-			alert('Erro logout');
-		});
-	}
-});

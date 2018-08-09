@@ -4,46 +4,49 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1"/>
 		<meta name='theme-color' content='#00838f'/>
-		<title>Bom Código</title>
+		<title>Pyquali</title>
 
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.css">
 		<link href="static/css/estilo.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="manifest" href="manifest.json">
+	
 	</head>
 	<body ng-app="BomCodigo" ng-cloak>
-		<div ng-controller="LoginController" layout="column" layout-fill>
+
+		<div ng-controller="LoginController"  layout="column" layout-fill>
 			<header>
-				<md-toolbar class="md-hue-2">
+				<md-toolbar class="md-hue-2" >
 					<div class="md-toolbar-tools" layout="row">	
-						<a class="md-title home" ng-href="#/" href="#/">Bom Código</a>
+						<a flex md-truncate class="md-title home" ng-href="#/" href="#/">Pyquali</a>
 						<span flex></span>
 						
-						<md-button href="#/" hide-xs hide-sm show-gt-md>
-							<span>Home</span>
-						</md-button>
-
 						<md-button  href="#/ranking-usuarios" hide-xs hide-sm show-gt-md>
-							<span>Ranking usuários</span>
+							Usuários
 						</md-button>
 
-						<md-button  href="#/ranking-repositorios" hide-xs hide-sm show-gt-md>
-							<span>Ranking repositórios</span>
+						<md-button hide-xs hide-sm show-gt-md href="#/ranking-repositorios">
+							Repositórios
 						</md-button>
 
 						<md-button ng-if="is_autenticado()" href="#/meus-repositorios" hide-xs hide-sm show-gt-md>
-							<span>Meus Repositórios</span>
+							Meus Repositórios
 						</md-button>
-
-						<md-button hide-sm hide-xs ng-if="is_autenticado()" ng-click="sair()" >
+	
+						
+						<md-button hide-sm hide-xs class="btn-github" ng-if="is_autenticado()" ng-click="sair()" >
 							Sair
 						</md-button>
-						<md-button hide-sm hide-xs ng-if="!is_autenticado()" ng-click="entrar()">
-							Entrar  				
-						</md-button>
-							
+						
+						
+						 <md-button hide-xs hide-sm show-gt-md  ng-if="!is_autenticado()" ng-click="entrar()">
+							<md-icon md-svg-icon="static/img/git.svg"></md-icon>
+						 	Login com GitHub
+						 </md-button>
+
 						<md-list-item  aria-label="More" hide-gt-sm>
 							<md-menu class="md-secondary">
 								<md-button class="md-icon-button">
@@ -51,21 +54,16 @@
 								</md-button>
 
 								<md-menu-content width="4">
-									<md-menu-item>
-										<md-button href="#/">
-											Home
-										</md-button>
-									</md-menu-item>
 
 									<md-menu-item>
 										<md-button href="#/ranking-usuarios">
-											Ranking usuários
+											Usuários
 										</md-button>
 									</md-menu-item>
 
 									<md-menu-item>
 										<md-button href="#/ranking-repositorios">
-											Ranking repositórios
+											Repositórios
 										</md-button>
 									</md-menu-item>
 
@@ -79,7 +77,7 @@
 
 									<md-menu-item >
 										<md-button ng-if="!is_autenticado()" ng-click="entrar()">
-											Entrar  				
+											Entrar com GitHub  				
 										</md-button>
 
 										<md-button ng-if="is_autenticado()" ng-click="sair()" >
@@ -93,8 +91,8 @@
 					</div>
 				</md-toolbar>
 			</header>
-
-			<main flex layout-fill>
+	
+			<main flex layout-fill >
 				<div layout="row" ui-view>
 					<div layout="column" flex id="content">
 						<md-content layout="column" flex class="md-padding">
@@ -102,34 +100,25 @@
 						</md-content> 
 					</div>
 				</div>
-			</main>
 
-			<footer>
-				<div>
-					<div id="rodape">
-						Trabalho de WebService do curso de Sistemas para Internet, 4º período.
-						Instituto Federal do Sudeste de Minas Gerais, campus Barbacena.	
-						<br>			
-						<small>Desenvolvido por:</small>
-						<strong>Érika e Luciano</strong>
-						<br>
-					</div>
-				</div>
-		  	</footer>
+			</main>
+			
+			
 		</div>
 
-		<!-- Firebase -->
-		<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+		
+		<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
 		<script>
-		 // Initialize Firebase
-		var config = {
-		 	apiKey: '',
-		    authDomain: '',
-		    databaseURL: '',
-		    storageBucket: '',
-		    messagingSenderId: ''
-		};
-		firebase.initializeApp(config);
+		  // Initialize Firebase
+		  var config = {
+		    apiKey: "AIzaSyBRLTXpwV5Um4ZKZRWxiN3t5wpcoISf9Pc",
+		    authDomain: "analisedecodigo.firebaseapp.com",
+		    databaseURL: "https://analisedecodigo.firebaseio.com",
+		    projectId: "analisedecodigo",
+		    storageBucket: "analisedecodigo.appspot.com",
+		    messagingSenderId: "493685904973"
+		  };
+		  firebase.initializeApp(config);
 		</script>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>

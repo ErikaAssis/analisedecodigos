@@ -1,60 +1,44 @@
 <div layout="row" layout-wrap class="container">
-	<md-content class="page-container" style="margin-left: -18px; margin-right: -13px;">
-		<section layout="row" layout-xs="column" style="color: rgb(255,109,0);">
-			<h1 show-xl hide-md hide-lg hide-sm hide-xs class="md-display-2" style="padding-left: 20px; text-align: center;">Bom código realiza a análise de repositórios do GitHub, desenvolvidos em Python, utilizando o Pylint e gera um ranking para seus usuários e outro ranking para os repositórios.</h1>
+	<md-content class="page-container" >
+		<div class="md-title" id="subtitle">Qualidade do código fonte Python</div>
+		<br>
+		<section layout="row" layout-xs="column">
+			<span>
+				<p>O Pyquali (Qualidade de código fonte em Python) é uma aplicação que realiza a análise de repositórios Python do GitHub, utilizando a ferramenta Pylint e gera um classificação para seus usuários e repositórios.</p>
 
-			<h1 show-lg hide-xl hide-sm hide-xs class="md-display-1" style="padding-left: 20px; text-align: center;">Bom código realiza a análise de repositórios do GitHub, desenvolvidos em Python, utilizando o Pylint e gera um ranking para seus usuários e outro ranking para os repositórios.</h1>
-
-			<!-- Fonte ajustada para dispositivos moveis -->
-			<h1 hide-gt-sm  show-xs style="padding-left: 20px; text-align: center;">Bom código realiza a análise de repositórios do GitHub, desenvolvidos em Python, utilizando o Pylint e gera um ranking para seus usuários e outro ranking para os repositórios.</h1>
+				<center>
+					<img src="static/img/pylint.svg" class="img-fluid" alt="">
+					<p>Pylint realiza várias verificações dentre elas: Padrão de Codificação, Detecção de erro, Ajuda de refatoração, entre outras </p>
+				</center>
+			</span>
 		</section>
 
-		<section style="margin-top: 20px; padding-left: 30px; background-color: rgba(224, 224, 224, 0.42);" layout-xs="column" layout="row">
-			<h1 show-xl hide-md hide-lg hide-sm hide-xs class="md-display-2">O Pylint realiza análise baseado no Guia de Estilo PEP 8 (convenção com padrões de codificação), e atribui uma pontuação a cada repositório analisado, pontuação essa que tem como maior nota a 10.</h1>
+		<section  layout-xs="column" layout="row" >
+			<md-card layout-align="center center" layout="row" layout-xs="column" style="padding: 20px 50px">
+				<span>O Pylint realiza análise baseado no Guia de Estilo PEP 8 (convenção com padrões de codificação), e atribui uma pontuação a cada repositório analisado, pontuação essa que tem como maior nota a 10.</span>
 
-			<h1 show-lg hide-xl hide-sm hide-xs class="md-display-1">O Pylint realiza análise baseado no Guia de Estilo PEP 8 (convenção com padrões de codificação), e atribui uma pontuação a cada repositório analisado, pontuação essa que tem como maior nota a 10.</h1>
-
-			<!-- Fonte ajustada para dispositivos moveis -->
-			<h1 hide-gt-sm show-xs>O Pylint realiza análise baseado no Guia de Estilo PEP 8 (convenção com padrões de codificação), e atribui uma pontuação a cada repositório analisado, pontuação essa que tem como maior nota a 10.</h1>
-
-			<div style="margin-right: 50px">
-				<img show-xl hide-md hide-lg hide-sm hide-xs style="width: 250px; margin-left: 15px; margin-top: 15px;" src="../static/img/trofeu.png">
-				<img show-lg hide-xl hide-sm hide-xs style="width: 200px; margin-left: 15px; margin-top: 15px;" src="../static/img/trofeu.png">
-				<!-- Fonte ajustada para dispositivos moveis -->
-				<img hide-gt-sm show-xs style="width: 180px; margin-left: 50px; margin-top: 15px;" src="../static/img/trofeu.png">
-			</div>
+				<img style="width: 150px;" src="../static/img/trofeu.png">
+				
+			</md-card>
 		</section>
-			
-		<section style="margin-top: 20px;">
-			<md-card layout="row" layout-xs="column">
-			<div>
-				<img show-xl hide-md hide-lg hide-sm hide-xs style="width: 500px;" src="../static/img/git.gif">
-				<img show-lg hide-xl hide-sm hide-xs style="width: 400px;" src="../static/img/git.gif">
 
-				<!-- Fonte ajustada para dispositivos moveis -->
-				<img hide-gt-sm show-xs style="width: 300px;margin-left: 13px" src="../static/img/git.gif">
-			</div>
-			<h1 show-xl hide-md hide-lg hide-sm hide-xs class="md-display-2" style="padding-left: 20px;">A visualização dos rankings é liberada para qualquer usuário ou visitante da página, já para a realização da análise dos repositórios são obrigatórios o login e autenticação no GitHub.</h1>
+		<section  style="margin-top: 20px;">
+			<md-card layout-align="center center" layout="row" layout-xs="column" style="padding: 20px">
 
-			<h1 show-lg hide-xl hide-sm hide-xs class="md-display-1" style="padding-left: 20px;">A visualização dos rankings é liberada para qualquer usuário ou visitante da página, já para a realização da análise dos repositórios são obrigatórios o login e autenticação no GitHub.</h1>
 
-			<!-- Fonte ajustada para dispositivos moveis -->
-			<h1 hide-gt-sm show-xs style="padding-left: 20px;">A visualização dos rankings é liberada para qualquer usuário ou visitante da página, já para a realização da análise dos repositórios são obrigatórios o login e autenticação no GitHub.</h1>
+				<img style="width: 200px;" src="../static/img/git.gif">
+				
+				<span>A visualização dos rankings é liberada para qualquer usuário ou visitante da página, já para a realização da análise dos repositórios são obrigatórios o login e autenticação no GitHub.</span>
+
 			</md-card>
 		</section>
 		
+		<div class="md-title" id="subtitle">Tenologias utilizadas</div>
 		<section>
-			<md-content class="md-padding" layout-xs="column" layout="row" style="background-color: #1881c1">
-				<h1 show-xl hide-md hide-lg hide-sm hide-xs class="md-display-2" style="color: rgb(255, 255, 255); padding-top: 250px;">
-				Ferramentas utilizadas no desenvolvimento do Bom Código</h1>
-
-				<h1 show-lg hide-xl hide-sm hide-xs class="md-display-1" style="color: rgb(255, 255, 255); padding-top: 250px;">
-				Ferramentas utilizadas no desenvolvimento do Bom Código</h1>
-
-				<!-- Fonte ajustada para dispositivos moveis -->
-				<h1 hide-gt-sm show-xs style="color: rgb(255, 255, 255); padding-top: 25px; text-align: center;">
-				Ferramentas utilizadas no desenvolvimento do Bom Código</h1>
-			    <div flex-xs flex-gt-xs="50" layout="column">
+			<md-content class="md-padding" layout-sm="column" layout-xs="column" layout="row" style="background-color: #1881c1">
+				
+				<span style="width: 75px;"></span>
+				<div>
 					<md-card md-theme="dark-blue" md-theme-watch>
 						<md-card-title>
 							<md-card-title-text>
@@ -71,11 +55,12 @@
 							<md-button ng-href="https://firebase.google.com/?hl=pt-br" target="_blank">Visitar</md-button>
 						</md-card-actions>
 					</md-card>
+					
 					<md-card md-theme-watch>
 						<md-card-title>
 							<md-card-title-text>
 								<span class="md-headline">GitHub</span>
-								<span class="md-subhead">Utilizado no desenvolvimento</span>
+								<span class="md-subhead">Autenticação</span>
 							</md-card-title-text>
 							<md-card-title-media>
 								<div class="md-media-sm card-media">
@@ -103,9 +88,9 @@
 							<md-button ng-href="https://www.python.org/" target="_blank">Visitar</md-button>
 						</md-card-actions>
 					</md-card>
-			    </div>
+				</div>
 
-			    <div flex-xs flex-gt-xs="50" layout="column">
+				<div flex-xs flex-gt-xs="50" layout="column">
 					<md-card md-theme="dark-purple" md-theme-watch>
 						<md-card-title>
 							<md-card-title-text>
@@ -154,28 +139,24 @@
 							<md-button ng-href="https://angularjs.org/" target="_blank">Visitar</md-button>
 						</md-card-actions>
 					</md-card>
-			    </div>
-		  	</md-content>
+				</div>
+			</md-content>
 		</section>
+		
 
-		<section style="margin-left: 12px">
-		    <h1 show-xl hide-md hide-lg hide-sm hide-xs class="md-display-1" style="text-align: center;">
-		    	<strong>Bom Código</strong> é o produto final do trabalho da disciplina de WebService em 2016, curso de Sistemas Para Internet, Instituto Federal do Sudeste de Minas Gerais - campus Barbacena.
-		    </h1>
-
-		    <h1 show-lg hide-xl hide-sm hide-xs style="text-align: center;">
-		    	<strong>Bom Código</strong> é o produto final do trabalho da disciplina de WebService em 2016, curso de Sistemas Para Internet, Instituto Federal do Sudeste de Minas Gerais - campus Barbacena.
-		    </h1>
-
-		    <!-- Fonte ajustada para dispositivos moveis -->
-		    <h1 hide-gt-sm show-xs style="text-align: center; font-size: 20px;">
-		    	<strong>Bom Código</strong> é o produto final do trabalho da disciplina de WebService em 2016, curso de Sistemas Para Internet, Instituto Federal do Sudeste de Minas Gerais - campus Barbacena.
-		    </h1>
-
-			<h3 style="margin-left: 2%">Desenvolvido por:<br/>		
-				<span style="margin-left: 5%">Érika Cristina Santos de Assis, 4º Período;</span><br/>
-				<span style="margin-left: 5%">Luciano Carlos, 4º Período.</span>
-			</h3>
-		</section>
 	</md-content>
 </div>
+
+
+<footer class="container">
+	<small>
+		<center>
+			<div>Trabalho prático da disciplina de WebService do curso de Sistemas para Internet, 4º período.</div>
+			<div>Instituto Federal do Sudeste de Minas Gerais, Campus Barbacena.</div>
+			<div>Veja mais em <a href="https://github.com/lucianocarlos/analisedecodigos">GitHub</a></div>
+
+			Copyright © 2018 - Todos os direitos reservados /
+			Desenvolvido por: Érika e Luciano 
+		</center>
+	</small>
+</footer>

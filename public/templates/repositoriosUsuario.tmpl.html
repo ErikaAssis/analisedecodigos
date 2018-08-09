@@ -1,9 +1,6 @@
 <div layout="row" layout-wrap class="container" ng-if="is_autenticado()">
     <div flex="100">
-        <md-subheader hide-xs hide-sm show-gt-md class="md-no-sticky"><h1>Meus Repositórios</h1></md-subheader>
-
-        <!-- Fonte ajustada para dispositivos moveis -->
-        <md-subheader hide-gt-sm class="md-no-sticky"><h2>Meus Repositórios<h2></md-subheader>
+        <md-subheader  class="md-no-sticky"><h4>Meus Respositórios Python</h4></md-subheader>
         
         <md-input-container class="md-icon-float md-block">
             <label>Pesquisar</label>
@@ -18,8 +15,7 @@
         <md-list-item class="md-2-line" ng-repeat="repositorio in repositorios | filter : criteria" ng-if="repositorio.language == 'Python'">
             <md-card>
                 <md-card-content>
-                    <h2><strong>{{repositorio.name}}</strong></h2>
-                    <h3>{{repositorio.description}}</h3>
+                    <h5><strong>{{repositorio.name}}</strong></h5>
                 </md-card-content>
                 <md-card-actions layout="row" layout-align="center">
                     <md-button class="md-warn md-raised md-hue-2" ng-click="analisarRepositorio($event, repositorio)">
@@ -29,14 +25,15 @@
             </md-card>
         </md-list-item>
     </md-list>
-
+    
+    <!-- Progresso -->
     <div style="visibility: hidden">
-	    <div class="md-dialog-container" id="myDialog">
-	      <md-dialog layout-padding aria-label="Carregar" style="min-width: 100px;box-shadow: none; background-color: rgba(255, 255, 255, 0);">
-	        <md-progress-circular class="md-warn md-hue-2" md-mode="indeterminate" md-diameter="100"></md-progress-circular>
-	      </md-dialog>
-	    </div>
-	</div>
+       <div class="md-dialog-container" id="myDialog">
+         <md-dialog layout-padding aria-label="Carregar" style="min-width: 100px;box-shadow: none; background-color: rgba(255, 255, 255, 0);">
+           <md-progress-circular class="md-warn md-hue-2" md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+       </md-dialog>
+   </div>
+</div>
 </div>
 
 <div layout="row" layout-wrap class="container" ng-if="!is_autenticado()" style="display: block">
